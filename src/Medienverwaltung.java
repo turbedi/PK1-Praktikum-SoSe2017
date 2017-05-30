@@ -1,11 +1,10 @@
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+//import java.io.BufferedInputStream;
+//import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+//import java.io.FileInputStream;
+//import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+//import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.util.Collections;
@@ -24,12 +23,13 @@ public class Medienverwaltung {
 		medienListe.add(medium);
 	}
 	
-	public void zeigeMedien() {
+	public void zeigeMedien(OutputStream stream) {
 		Collections.sort(medienListe);
 		
 		Iterator<Medium> it = medienListe.iterator();
-		while (it.hasNext())
-			it.next().druckeDaten();
+		while (it.hasNext()) {
+			it.next().druckeDaten(stream);
+		}
 	}
 	
 	public void sucheNeuesMedium() {
@@ -39,14 +39,14 @@ public class Medienverwaltung {
 				n = m;
 			}
 		}
-		n.druckeDaten();
+		n.druckeDaten(System.out);
 	}
 	
 	public double berechneErscheinungsjahr() {
 		if (medienListe.isEmpty())
 			return 0;
-		double jahre=0;
-		int counter=0;
+		double jahre = 0;
+		int counter = 0;
 		for (Medium m: medienListe) {
 			jahre += m.getJahr();
 			counter++;

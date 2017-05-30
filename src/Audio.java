@@ -1,4 +1,5 @@
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class Audio extends Medium {
 	private String interpret;
@@ -11,7 +12,9 @@ public class Audio extends Medium {
 	}
 	
 	public void druckeDaten(OutputStream stream) {
-		stream = System.out.printf("ID: %d %s von %s aus %d Spieldauer: %s sek.", getID(), getTitle(), interpret, getJahr(), dauer);
+		PrintStream ausgabe = new PrintStream(stream);
 		//System.out.println("ID: " + getID() + " " + getTitle() + " von " + interpret + " aus " + getJahr() + " Spieldauer: " + dauer + "sek.");
+		ausgabe.printf("ID: %d %s von %s aus %d Spieldauer: %s sek.\n", getID(), getTitle(), interpret, getJahr(), dauer);
+		ausgabe.flush();
 	}
 }
