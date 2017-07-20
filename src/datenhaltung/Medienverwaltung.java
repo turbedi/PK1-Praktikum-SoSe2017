@@ -2,7 +2,6 @@ package datenhaltung;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,11 +36,6 @@ public class Medienverwaltung implements Serializable, IDao {
 		for (Medium m: medienListe) {
 			m.druckeDaten(stream);
 		}
-		
-//		Iterator<Medium> it = medienListe.iterator();
-//		while (it.hasNext()) {
-//			it.next().druckeDaten(stream);
-//		}
 	}
 	
 	public Medium sucheNeuesMedium() {
@@ -52,7 +46,6 @@ public class Medienverwaltung implements Serializable, IDao {
 			}
 		}
 		return n;
-		//n.druckeDaten(System.out);
 	}
 	
 	public double berechneErscheinungsjahr() {
@@ -67,7 +60,7 @@ public class Medienverwaltung implements Serializable, IDao {
 		return jahre/counter;
 	}
 	
-	public static void copy(File from, File to) throws IOException { // Von Vorlesung 5 kopiert, aber mit Buffer
+	public static void copy(File from, File to) throws IOException {
 		
 		try (RandomAccessFile input = new RandomAccessFile(from, "rw");
 			 RandomAccessFile output = new RandomAccessFile(to, "rw");) {
@@ -75,24 +68,21 @@ public class Medienverwaltung implements Serializable, IDao {
 			output.seek(0);
 			for (int i = 0; i < from.length(); i++)
 				output.write(input.read());
+			
 		} catch (IOException e) {
 			System.err.println(e.toString());
 		}
-		
-		
 	}
 	
 	public static void cat(File quelle) throws IOException {
 		String line = null;
 		try (RandomAccessFile input = new RandomAccessFile(quelle, "r");) { 
-			
 			while ((line = input.readLine()) != null) {
 				System.out.println(line);
 			}
 		} catch (IOException e) {
 			System.err.println(e.toString());
 		}
-		
 	}
 	
 	public Iterator<Medium> iterator() {
@@ -103,8 +93,7 @@ public class Medienverwaltung implements Serializable, IDao {
 	public void speichern(List<Medium> liste) throws PersistenzException {
 		File serFile = new File("medienliste.ser");
 		
-		try(FileOutputStream fos= new FileOutputStream(serFile);
-		         ObjectOutputStream oos= new ObjectOutputStream(fos);) {
+		try(FileOutputStream fos= new FileOutputStream(serFile);	ObjectOutputStream oos= new ObjectOutputStream(fos);) {
 			oos.writeObject(liste);
 			System.out.println("Serialisierung erfolgreich");
 		} catch (IOException e) {
@@ -121,8 +110,7 @@ public class Medienverwaltung implements Serializable, IDao {
 	@Override
 	public List<Medium> laden() throws PersistenzException {
 		File file = new File("medienliste.ser");
-		try (FileInputStream fis = new FileInputStream(file);
-				ObjectInputStream ois = new ObjectInputStream(fis);) {
+		try (FileInputStream fis = new FileInputStream(file);	ObjectInputStream ois = new ObjectInputStream(fis);) {
 			
 			List<Medium> neueListe = (List<Medium>) ois.readObject(); // Lese Object aus der .ser Datei
 			System.out.println("Deserialisierung erfolgreich");
@@ -136,12 +124,12 @@ public class Medienverwaltung implements Serializable, IDao {
 	}
 	
 	public void medienlisteInDatei(String dateiname) {
-        File listenDatei = new File(dateiname);
+		File listenDatei = new File(dateiname);
 		BufferedOutputStream bufferOutput = null;
 		try {
 			OutputStream output = new FileOutputStream(listenDatei);
 			bufferOutput = new BufferedOutputStream(output);
-	        zeigeMedien(bufferOutput);
+			zeigeMedien(bufferOutput);
 		} catch (IOException e) {
 			System.out.println("Fehler");
 			e.printStackTrace();
@@ -153,5 +141,4 @@ public class Medienverwaltung implements Serializable, IDao {
 			}
 		}
 	}
-
 }

@@ -31,5 +31,4 @@ public class Bild extends Medium {
 		return "ID: " +  getID() + " Titel: " + getTitle() + " aufgenommen im Jahr" +  getJahr() + " in " + getOrt() + "\n";
 	}
 	
-	
 }
