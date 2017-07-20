@@ -1,7 +1,12 @@
+package fachlogik;
+
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Medium implements Comparable<Medium> {
+public abstract class Medium implements Comparable<Medium>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private static int idIndex;
 	private final int id;
 	private String title;
@@ -33,6 +38,5 @@ public abstract class Medium implements Comparable<Medium> {
 		return Integer.compare(getJahr(), x.getJahr());
 	}
 	
-
 	public abstract void druckeDaten(OutputStream stream);
 }
